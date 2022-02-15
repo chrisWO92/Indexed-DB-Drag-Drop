@@ -1,0 +1,42 @@
+body {
+    box-sizing: border-box;
+    font-family: sans-serif;
+    text-align: center;
+    
+}
+
+body, h2, div, input, button {
+    padding: 0;
+    margin: 0;
+}
+
+.add-names {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#name {
+    padding: 4px 8px;
+}
+
+#add {
+    padding: 4px 8px;
+}
+
+.name {
+    display: grid;
+    grid-template-columns: minmax(100px, 300px) 1fr;
+    border-top: 1px solid #48e;
+    padding-top: 5px;
+}
+
+.options button {
+    background: transparent;
+    border: none;
+    margin: 4px 10px;
+    font-size: 1.3rem;
+}
+
+.delete:hover {
+    color: #999;
+}
