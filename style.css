@@ -36,6 +36,8 @@ body, h2, div, input, button {
     border-top: 1px solid #48e;
     padding-top: 10px;
     padding-bottom: 10px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .options button {
@@ -65,6 +67,12 @@ body, h2, div, input, button {
 
 .possible:hover {
     opacity: 0.7;
+}
+
+h2 {
+    outline-color: #48e;
+    padding: 10px;
+    color: #48e;
 }
 
 

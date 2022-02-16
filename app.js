@@ -10,7 +10,7 @@ IDBRequest.addEventListener("upgradeneeded", ()=>{
 });
 
 IDBRequest.addEventListener("success", ()=>{
-    console.log("todo salió correctamente");
+    readObjects();
 });
 
 IDBRequest.addEventListener("error", ()=>{
@@ -28,13 +28,16 @@ const addObject = object => {
 const readObjects = () => {
     const IDBData = getIDBData("readonly");
     const cursor = IDBData.openCursor();
+    const fragment = document.createDocumentFragment();
+    document.querySelector(".names").innerHTML = "";
     cursor.addEventListener("success", ()=>{
         if (cursor.result){
-            console.log(cursor.result.value);
+            let element = nameHTML(cursor.result.key, cursor.result.value.name);
+            fragment.appendChild(element);
             cursor.result.continue();
         }
         else {
-            console.log("todos los datos han sido leídos");
+            document.querySelector(".names").appendChild(fragment);
         }
     });
 }
@@ -60,7 +63,7 @@ const getIDBData = (mode, msg) => {
     return objectStore;
 }
 
-const nameHTML = (nameElement) => {
+const nameHTML = (id, nameElement) => {
     const name = document.createElement("DIV");
     const title = document.createElement("H2");
     const options = document.createElement("DIV");
@@ -81,11 +84,43 @@ const nameHTML = (nameElement) => {
 
     name.appendChild(title);
     name.appendChild(options);
+
+    title.contentEditable = 'true';
+    title.addEventListener("keyup", () => {
+        saveButton.classList.replace("impossible","possible");
+        document.querySelector(".possible").addEventListener("click", () => {
+            modifyObject(id, {name: title.textContent});
+            saveButton.classList.replace("possible", "impossible");
+        })
+    })
+
+    deleteButton.addEventListener("click", () => {
+        deleteObject(id);
+        readObjects();
+    })
     
     return name;
 }
 
 const names = document.querySelector(".names");
+const nameToAdd = document.getElementById("name");
 
-names.appendChild(nameHTML("Cristian"));
-names.appendChild(nameHTML("Cristian"));
+document.getElementById("add").addEventListener("click", () =>{
+
+    if (document.querySelectorAll(".impossible").length == 0){
+        addObject({name: nameToAdd.value});
+        readObjects();
+    }else {
+        if (document.querySelectorAll(".possible").length !== 0){
+            if (confirm("Hay elementos sin guardar, ¿Desea continuar sin guardar?")){
+                addObject({name: nameToAdd.value});
+                readObjects();
+            }
+        }else {
+            addObject({name: nameToAdd.value});
+            readObjects();
+        }
+    }
+    
+})
+
