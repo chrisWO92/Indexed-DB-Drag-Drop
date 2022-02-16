@@ -21,13 +21,21 @@ body, h2, div, input, button {
 
 #add {
     padding: 4px 8px;
+    cursor: pointer;
+}
+.names {
+    max-width: 600px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .name {
     display: grid;
     grid-template-columns: minmax(100px, 300px) 1fr;
     border-top: 1px solid #48e;
-    padding-top: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .options button {
@@ -35,8 +43,28 @@ body, h2, div, input, button {
     border: none;
     margin: 4px 10px;
     font-size: 1.3rem;
+    
 }
+
+.delete, .possible {
+    cursor: pointer;
+}
+
 
 .delete:hover {
     color: #999;
 }
+
+.impossible {
+    color: #999;
+}
+
+.possible{
+    color: #48e;
+}
+
+.possible:hover {
+    opacity: 0.7;
+}
+
+

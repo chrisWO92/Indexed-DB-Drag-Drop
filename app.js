@@ -1,6 +1,6 @@
 "use strict";
 
-const IDBRequest = indexedDB.open("cristianDataBase", 1);
+const IDBRequest = indexedDB.open("DataBase", 1);
 
 IDBRequest.addEventListener("upgradeneeded", ()=>{
     const db = IDBRequest.result;
@@ -25,7 +25,7 @@ const addObject = object => {
 }
 
 // Para leer objetos a la base de datos
-const readObject = object => {
+const readObjects = () => {
     const IDBData = getIDBData("readonly");
     const cursor = IDBData.openCursor();
     cursor.addEventListener("success", ()=>{
@@ -60,3 +60,32 @@ const getIDBData = (mode, msg) => {
     return objectStore;
 }
 
+const nameHTML = (nameElement) => {
+    const name = document.createElement("DIV");
+    const title = document.createElement("H2");
+    const options = document.createElement("DIV");
+    const saveButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
+
+    saveButton.textContent = "Save";
+    deleteButton.textContent = "Delete";
+    title.textContent = nameElement;
+
+    name.classList.add("name");
+    options.classList.add("options");
+    saveButton.classList.add("impossible");
+    deleteButton.classList.add("delete");
+
+    options.appendChild(saveButton);
+    options.appendChild(deleteButton);
+
+    name.appendChild(title);
+    name.appendChild(options);
+    
+    return name;
+}
+
+const names = document.querySelector(".names");
+
+names.appendChild(nameHTML("Cristian"));
+names.appendChild(nameHTML("Cristian"));
